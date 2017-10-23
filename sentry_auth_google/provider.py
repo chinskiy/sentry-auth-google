@@ -1,20 +1,21 @@
 from __future__ import absolute_import, print_function
 
 from sentry.auth.provider import MigratingIdentityId
+from sentry.options import get
+
 from sentry.auth.providers.oauth2 import (
     OAuth2Callback, OAuth2Provider, OAuth2Login
 )
 
 from .constants import (
-    AUTHORIZE_URL, ACCESS_TOKEN_URL, CLIENT_ID, CLIENT_SECRET, DATA_VERSION,
-    SCOPE
+    AUTHORIZE_URL, ACCESS_TOKEN_URL, DATA_VERSION, SCOPE
 )
 from .views import FetchUser, GoogleConfigureView
 
 
 class GoogleOAuth2Login(OAuth2Login):
     authorize_url = AUTHORIZE_URL
-    client_id = CLIENT_ID
+    client_id = get('auth-google.client-id')
     scope = SCOPE
 
     def __init__(self, domains=None):
@@ -35,8 +36,8 @@ class GoogleOAuth2Login(OAuth2Login):
 
 class GoogleOAuth2Provider(OAuth2Provider):
     name = 'Google'
-    client_id = CLIENT_ID
-    client_secret = CLIENT_SECRET
+    client_id = get('auth-google.client-id')
+    client_secret = get('auth-google.client-secret')
 
     def __init__(self, domain=None, domains=None, version=None, **config):
         if domain:
