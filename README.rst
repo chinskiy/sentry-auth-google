@@ -27,3 +27,10 @@ Finally, obtain the API keys and plug them into your ``sentry.conf.py``:
 
     GOOGLE_CLIENT_SECRET = ""
 
+Alternatively, you can plug them into your ``config.yml``:
+
+.. code-block:: python
+
+    auth-google.client-id: ""
+
+    auth-google.client-secret: ""
